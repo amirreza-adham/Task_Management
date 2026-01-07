@@ -113,5 +113,30 @@ namespace TodoApi.Controllers
         }
 
 
+
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Todos(Guid id)
+        {
+            var userId = GetUserId();
+
+            var todo = await _context.TodoItems
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (todo == null)
+                return NotFound();
+
+            if (todo.UserId != userId)
+                return Forbid(); // 403
+
+            _context.TodoItems.Remove(todo);
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // 204   // حذف  از لیست
+        }
+
+
+
     }
 }
