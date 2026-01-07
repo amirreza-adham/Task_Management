@@ -12,6 +12,6 @@ namespace TodoApi.Models
 
         // کلید خارجی 
         public Guid UserId { get; set; } // مربوط به کدام یوزر است 
-        public User User { get; set; } // اگر بخواهیم اطلاعات کاربر را بعدا کامل برگردانیم همان بحث جوین 
+        public User User { get; set; } // اگر بخواهیم اطلاعات کاربر را با هر تسک بعدا کامل برگردانیم همان بحث جوین 
     }
 }
