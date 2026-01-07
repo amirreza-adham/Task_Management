@@ -71,7 +71,7 @@ namespace TodoApi.Controllers
         [HttpGet("{id}")] // یافتن تسک از روی آیدی آن 
         public async Task<IActionResult> GetTodoById(Guid id)
         {
-            var userId = GetUserId(); 
+            var userId = GetUserId();
 
             // بررسی وجود Todo
             var todo = await _context.TodoItems
@@ -83,6 +83,31 @@ namespace TodoApi.Controllers
             // بررسی مالکیت
             if (todo.UserId != userId)
                 return Forbid(); // 403
+
+            return Ok(todo);
+        }
+
+
+        [HttpPut("{id}")] // این متد برای آپدیت استفاده میشود 
+        public async Task<IActionResult> Todos(Guid id, UpdateTodoDto dto)
+        {
+            var userId = GetUserId();
+
+            var todo = await _context.TodoItems
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (todo == null)
+                return NotFound();
+
+            if (todo.UserId != userId)
+                return Forbid(); // 403
+
+            // جایگزینی داده‌ها
+            todo.Title = dto.Title;
+            todo.Description = dto.Description;
+            todo.IsDone = dto.IsDone;
+
+            await _context.SaveChangesAsync();
 
             return Ok(todo);
         }
