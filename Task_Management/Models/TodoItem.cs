@@ -4,14 +4,14 @@ namespace TodoApi.Models
 {
     public class TodoItem
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string? Description { get; set; }
-        public bool IsDone { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public Guid Id { get; set; } // شناسه یکتا برای هر تسک
+        public string Title { get; set; } //عنوان 
+        public string? Description { get; set; } // توضیحات میتواند خالی باشد 
+        public bool IsDone { get; set; } // انجام شده یا خیر
+        public DateTime CreatedAt { get; set; } // زمان ساخته شدن این تسک
 
-        // Foreign key
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        // کلید خارجی 
+        public Guid UserId { get; set; } // مربوط به کدام یوزر است 
+        public User User { get; set; } // اگر بخواهیم اطلاعات کاربر را بعدا کامل برگردانیم همان بحث جوین 
     }
 }
