@@ -1,4 +1,11 @@
+﻿using Microsoft.EntityFrameworkCore;
+using TodoApi.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// اضافه کردن dbcontext
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 
