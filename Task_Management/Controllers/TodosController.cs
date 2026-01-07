@@ -64,5 +64,29 @@ namespace TodoApi.Controllers
             return Ok(todos);
         }
 
+
+
+
+
+        [HttpGet("{id}")] // یافتن تسک از روی آیدی آن 
+        public async Task<IActionResult> GetTodoById(Guid id)
+        {
+            var userId = GetUserId(); 
+
+            // بررسی وجود Todo
+            var todo = await _context.TodoItems
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (todo == null)
+                return NotFound();
+
+            // بررسی مالکیت
+            if (todo.UserId != userId)
+                return Forbid(); // 403
+
+            return Ok(todo);
+        }
+
+
     }
 }
